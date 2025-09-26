@@ -7,7 +7,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.JDABuilder
+import org.slf4j.LoggerFactory
 import kotlin.time.Duration.Companion.minutes
+
+private val logger = LoggerFactory.getLogger("Main")
 
 fun main() = runBlocking {
     val baseUrl = requireEnv("YT_BASE_URL")
@@ -17,12 +20,12 @@ fun main() = runBlocking {
 
     val jda = JDABuilder.createDefault(discordToken).build()
     jda.awaitReady()
-    println("[INFO] JDA ready as ${jda.selfUser.asTag}")
+    logger.info("JDA ready as {}", jda.selfUser.asTag)
 
     YouTrackClient(baseUrl, ytToken).use { yt ->
         CommandRegistry.registerAndSendCommands(jda, yt, baseUrl)
 
-        println("[INFO] Starting 10-minute notification scheduler for YouTrack base: $baseUrl")
+        logger.info("Starting 10-minute notification scheduler for YouTrack base: {}", baseUrl)
         val task = SendNotificationTask(yt, jda, baseUrl)
 
         launch {
@@ -30,7 +33,6 @@ fun main() = runBlocking {
         }
         Runtime.getRuntime().addShutdownHook(Thread {
             try {
-                println("[INFO] Shutting down JDA...")
                 jda.shutdown()
             } catch (_: Exception) {}
         })

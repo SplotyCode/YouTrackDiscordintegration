@@ -4,6 +4,9 @@ import de.scandurra.youtrackdiscord.client.ChangeEvent
 import de.scandurra.youtrackdiscord.client.Issue
 import de.scandurra.youtrackdiscord.client.NotificationMetadata
 import de.scandurra.youtrackdiscord.notification.Changes.Mapper
+import org.slf4j.LoggerFactory
+
+private val logger = LoggerFactory.getLogger(Changes::class.java)
 
 data class Changes (
     val issue: Issue,
@@ -35,7 +38,7 @@ data class Changes (
                     "COMMENT" -> listOfNotNull(convertComment(ev))
                     "CUSTOM_FIELD" -> convertCustomField(ev)
                     else -> {
-                        println("Unknown event category: ${ev.category}")
+                        logger.warn("Unknown event category: {}", ev.category)
                         emptyList()
                     }
                 }

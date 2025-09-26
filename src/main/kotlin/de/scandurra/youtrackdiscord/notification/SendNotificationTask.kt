@@ -5,6 +5,7 @@ import kotlinx.coroutines.delay
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.utils.messages.MessageCreateData
+import org.slf4j.LoggerFactory
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration
 
@@ -13,6 +14,7 @@ class SendNotificationTask (
     val jda: JDA,
     val baseUrl: String,
 ) {
+    private val logger = LoggerFactory.getLogger(SendNotificationTask::class.java)
     val sentIds = ConcurrentHashMap.newKeySet<String>()
 
     suspend fun run(userId: String, delay: Duration) {
@@ -20,7 +22,7 @@ class SendNotificationTask (
             try {
                 send(userId)
             } catch (e: Exception) {
-                e.printStackTrace()
+                logger.error("Error while sending notifications", e)
             }
             delay(delay)
         }
@@ -43,16 +45,16 @@ class SendNotificationTask (
         } else {
             jda.retrieveUserById(userId).queue({ u ->
                 sendDirectMessage(u, message)
-            }, { err -> println("[ERROR] Failed to retrieve user $userId: ${err.message}") })
+            }, { err -> logger.error("Failed to retrieve user {}: {}", userId, err.message) })
         }
     }
 
     private fun sendDirectMessage(user: User, message: MessageCreateData) {
         user.openPrivateChannel().queue({ ch ->
             ch.sendMessage(message).queue(
-                { println("[INFO] Sent DM to user ${user.name} (${user.id}") },
-                { err -> println("[ERROR] Failed to send DM: ${err.message}") }
+                { logger.info("Sent DM to user {} ({})", user.name, user.id) },
+                { err -> logger.error("Failed to send DM: {}", err.message) }
             )
-        }, { err -> println("[ERROR] Failed to open private channel: ${err.message}") })
+        }, { err -> logger.error("Failed to open private channel: {}", err.message) })
     }
 }
