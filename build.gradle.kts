@@ -19,6 +19,8 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:2.3.12")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
 
+    implementation("net.dv8tion:JDA:5.0.0")
+
     testImplementation(kotlin("test"))
 }
 
