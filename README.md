@@ -11,11 +11,15 @@ A small Kotlin application that bridges YouTrack and Discord
 
 ## Prerequisites
 - A YouTrack instance (e.g., Cloud: `https://<your-domain>.youtrack.cloud`).
+  - You can create one with just one click [here](https://www.jetbrains.com/de-de/youtrack/).
 - A YouTrack Permanent Token for the user whose notifications should be read.
-  - Must allow: read user notifications, read projects, and create issues.
+  - Follow [this](https://www.jetbrains.com/help/youtrack/server/manage-permanent-token.html#delete-permanent-token) guide you only need to grant the `YouTrack` scope
 - A Discord Application with a Bot user and token.
-  - Invite the bot to at least one server with scopes `bot` and `applications.commands`.
-  - Global slash commands can take up to 1 hour to propagate.
+  - Create a new application [here](https://discord.com/developers/applications?new_application=true)
+  - Then go to `Install` and click the `Install Link`
+- Your Discord user ID
+  - Enable Developer Mode in Discord
+  - Right-click your profile → Copy User ID.
 
 ## Configuration (Environment Variables)
 Set the following environment variables before running:
@@ -23,7 +27,6 @@ Set the following environment variables before running:
 - `YT_TOKEN` YouTrack permanent token (starts with `perm-...`).
 - `DISCORD_TOKEN` Discord Bot token from the Developer Portal.
 - `DISCORD_USER_ID` The numeric Discord user ID to receive DMs.
-  - To obtain: enable Developer Mode in Discord → right-click your profile → Copy User ID.
 
 ## Build and Run
 
