@@ -2,6 +2,11 @@
 
 A small Kotlin application that bridges YouTrack and Discord
 
+|        Notifications        |                Create tasks                |
+|:---------------------------:|:------------------------------------------:|
+| ![](docs/notifications.png) | ![create-tasks.png](docs/create-tasks.png) |
+
+
 ## Features
 - Polls your YouTrack unread notifications and sends them as Discord direct messages to a specific user.
 - Provides a `/yt-create` slash command in Discord to create YouTrack issues
