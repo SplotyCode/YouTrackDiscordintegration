@@ -53,6 +53,8 @@ $env:DISCORD_USER_ID="<your-discord-user-id>"
 ./gradlew.bat run
 ```
 
+Alternatively, you can use the prebuild jar files under GitHub Releases.
+
 ## Notes and Limitations
 - Dedupe is in-memory only. If you restart the app, still-unread notifications may be sent again.
 - Notifications are not marked as read in YouTrack by this tool (I was not able to find an API endpoint for this).
