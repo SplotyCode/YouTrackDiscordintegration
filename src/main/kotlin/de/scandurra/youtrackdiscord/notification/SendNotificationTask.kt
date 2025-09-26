@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.utils.messages.MessageCreateData
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration
 
 class SendNotificationTask (
     val client: YouTrackClient,
@@ -15,14 +15,14 @@ class SendNotificationTask (
 ) {
     val sentIds = ConcurrentHashMap.newKeySet<String>()
 
-    suspend fun run(userId: String) {
+    suspend fun run(userId: String, delay: Duration) {
         while (true) {
             try {
                 send(userId)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            delay(10.minutes)
+            delay(delay)
         }
     }
 

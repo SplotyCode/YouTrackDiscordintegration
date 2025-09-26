@@ -27,6 +27,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(23)
+}
+
+application {
+    mainClass.set("de.scandurra.youtrackdiscord.MainKt")
 }
