@@ -38,3 +38,13 @@ kotlin {
 application {
     mainClass.set("de.scandurra.youtrackdiscord.MainKt")
 }
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "de.scandurra.youtrackdiscord.MainKt"
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree)
+    from(dependencies)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
