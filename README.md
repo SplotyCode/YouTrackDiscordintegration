@@ -67,3 +67,10 @@ Alternatively, you can use the prebuild jar files under GitHub Releases.
 - No DMs received:
   - Ensure the token has permissions to read user notifications
   - Check stderr for errors
+
+<details>
+  <summary>Example cli output</summary>
+
+  ![](docs/cli.png)
+
+</details>
